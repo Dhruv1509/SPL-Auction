@@ -1,4 +1,3 @@
-// SPL Auction Platform - MVP (React UI)
 import React, { useState } from "react";
 
 const initialTeams = [
@@ -10,14 +9,14 @@ const initialTeams = [
 
 const initialPlayers = Array.from({ length: 50 }, (_, i) => ({
   id: i + 1,
-  name: \`Player \${i + 1}\`,
+  name: `Player ${i + 1}`,
   basePrice: 50 + (i % 5) * 10,
   sold: false,
   team: null,
   bid: 0,
 }));
 
-export default function SPLAuction() {
+export default function App() {
   const [teams, setTeams] = useState(initialTeams);
   const [players, setPlayers] = useState(initialPlayers);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
@@ -67,7 +66,7 @@ export default function SPLAuction() {
         <h2 className="text-xl font-bold mb-2">Teams</h2>
         <div className="space-y-4">
           {teams.map((team) => (
-            <div key={team.name} className={"p-3 rounded-lg"} style={{ backgroundColor: team.color }}>
+            <div key={team.name} className={`p-3 rounded-lg`} style={{ backgroundColor: team.color }}>
               <h3 className="text-white font-semibold text-lg">{team.name} - ₹{team.balance} Left</h3>
               <ul className="text-white text-sm mt-2">
                 {team.players.map((p) => (
