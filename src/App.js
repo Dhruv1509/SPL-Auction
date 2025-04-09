@@ -7,7 +7,7 @@ const initialTeams = [
   { name: "Jabardast Jetha", color: "#3B82F6", balance: 1000, players: [] },
   { name: "Bindas Bhide", color: "#10B981", balance: 1000, players: [] },
   { name: "Babita Blaster", color: "#FACC15", balance: 1000, players: [] },
-  { name: "Daya Daredevils", color: "#EF4444", balance: 1000, players: [] },
+  { name: "Daya Dandiyadevils", color: "#EF4444", balance: 1000, players: [] },
 ];
 
 const playerNames = [
@@ -65,6 +65,44 @@ export default function SPLAuction() {
         <h1 className="text-3xl font-bold text-center text-gray-800 flex-1">Shivohm Premiere League</h1>
       </div>
 
+      {/* Bidding Panel - moved above Players List */}
+      {selectedPlayer && (
+        <div className="bg-white p-4 rounded shadow-lg mb-4">
+          <h2 className="text-lg font-semibold mb-2">Auctioning: {selectedPlayer.name}</h2>
+          <input
+            type="number"
+            placeholder="Enter Bid Amount"
+            value={bidAmount}
+            onChange={(e) => setBidAmount(Number(e.target.value))}
+            className="border px-2 py-1 mr-2"
+          />
+          <button
+            className="bg-blue-600 text-white px-3 py-1 rounded"
+            onClick={handleBid}
+          >
+            Confirm Bid for {selectedTeam || "No Team Selected"}
+          </button>
+        </div>
+      )}
+
+      {/* Players List */}
+      <div className="bg-white p-4 rounded-lg shadow-md mb-4">
+        <h2 className="text-xl font-semibold mb-1">Auctioning:</h2>
+        <h2 className="text-xl font-semibold mb-3">Available Players</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {sortedPlayers.map((player) => (
+            <div
+              key={player.id}
+              className="border p-2 rounded shadow-sm hover:bg-gray-50 cursor-pointer"
+              onClick={() => setSelectedPlayer(player)}
+            >
+              <p className="font-medium">{player.name}</p>
+              <p className="text-sm">Base: ₹{player.basePrice}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Team Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {teams.map((team) => (
@@ -85,44 +123,6 @@ export default function SPLAuction() {
           </div>
         ))}
       </div>
-
-      {/* Players List */}
-      <div className="bg-white p-4 rounded-lg shadow-md mb-4">
-        <h2 className="text-xl font-semibold mb-1">Auctioning:</h2>
-        <h2 className="text-xl font-semibold mb-3">Available Players</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {sortedPlayers.map((player) => (
-            <div
-              key={player.id}
-              className="border p-2 rounded shadow-sm hover:bg-gray-50 cursor-pointer"
-              onClick={() => setSelectedPlayer(player)}
-            >
-              <p className="font-medium">{player.name}</p>
-              <p className="text-sm">Base: ₹{player.basePrice}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Bidding Panel */}
-      {selectedPlayer && (
-        <div className="bg-white p-4 rounded shadow-lg mt-4">
-          <h2 className="text-lg font-semibold mb-2">Auctioning: {selectedPlayer.name}</h2>
-          <input
-            type="number"
-            placeholder="Enter Bid Amount"
-            value={bidAmount}
-            onChange={(e) => setBidAmount(Number(e.target.value))}
-            className="border px-2 py-1 mr-2"
-          />
-          <button
-            className="bg-blue-600 text-white px-3 py-1 rounded"
-            onClick={handleBid}
-          >
-            Confirm Bid for {selectedTeam || "No Team Selected"}
-          </button>
-        </div>
-      )}
     </div>
   );
 }
