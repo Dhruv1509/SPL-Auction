@@ -64,6 +64,24 @@ export default function SPLAuction() {
         <img src={logo} alt="Shivohm Logo" className="w-16 h-16" />
         <h1 className="text-3xl font-bold text-center text-gray-800 flex-1">Shivohm Premiere League</h1>
       </div>
+  {/* Team Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        {teams.map((team) => (
+          <div key={team.name} className="rounded-xl p-4 shadow-lg text-white" style={{ backgroundColor: team.color }}>
+            <h3 className="text-xl font-semibold">{team.name}</h3>
+            <p className="text-sm">Balance: ₹{team.balance}</p>
+            <ul className="mt-2 text-sm">
+              {team.players.map((p) => (
+                <li key={p.id}>{p.name} - ₹{p.bid}</li>
+              ))}
+            </ul>
+            <button
+              className="mt-2 bg-white text-black px-3 py-1 rounded"
+              onClick={() => setSelectedTeam(team.name)}
+            >
+              Select {team.name}
+            </button>
+          </div>
 
       {/* Bidding Panel - moved above Players List */}
       {selectedPlayer && (
@@ -87,7 +105,6 @@ export default function SPLAuction() {
 
       {/* Players List */}
       <div className="bg-white p-4 rounded-lg shadow-md mb-4">
-        <h2 className="text-xl font-semibold mb-1">Auctioning:</h2>
         <h2 className="text-xl font-semibold mb-3">Available Players</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {sortedPlayers.map((player) => (
@@ -103,24 +120,7 @@ export default function SPLAuction() {
         </div>
       </div>
 
-      {/* Team Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        {teams.map((team) => (
-          <div key={team.name} className="rounded-xl p-4 shadow-lg text-white" style={{ backgroundColor: team.color }}>
-            <h3 className="text-xl font-semibold">{team.name}</h3>
-            <p className="text-sm">Balance: ₹{team.balance}</p>
-            <ul className="mt-2 text-sm">
-              {team.players.map((p) => (
-                <li key={p.id}>{p.name} - ₹{p.bid}</li>
-              ))}
-            </ul>
-            <button
-              className="mt-2 bg-white text-black px-3 py-1 rounded"
-              onClick={() => setSelectedTeam(team.name)}
-            >
-              Select {team.name}
-            </button>
-          </div>
+      
         ))}
       </div>
     </div>
