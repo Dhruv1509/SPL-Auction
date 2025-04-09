@@ -1,10 +1,12 @@
+// SPL Auction Platform - Enhanced UI with Shivohm Branding
 import React, { useState } from "react";
+import logo from "./assets/logo.png"; // Make sure to place the Shivohm logo as 'logo.png' in public or src/assets
 
 const initialTeams = [
-  { name: "Blue Blasters", color: "blue", balance: 1000, players: [] },
-  { name: "Green Guardians", color: "green", balance: 1000, players: [] },
-  { name: "Yellow Yoddhas", color: "yellow", balance: 1000, players: [] },
-  { name: "Red Rangers", color: "red", balance: 1000, players: [] },
+  { name: "Blue Blasters", color: "#3B82F6", balance: 1000, players: [] },
+  { name: "Green Guardians", color: "#10B981", balance: 1000, players: [] },
+  { name: "Yellow Yoddhas", color: "#FACC15", balance: 1000, players: [] },
+  { name: "Red Rangers", color: "#EF4444", balance: 1000, players: [] },
 ];
 
 const initialPlayers = Array.from({ length: 50 }, (_, i) => ({
@@ -16,7 +18,7 @@ const initialPlayers = Array.from({ length: 50 }, (_, i) => ({
   bid: 0,
 }));
 
-export default function App() {
+export default function SPLAuction() {
   const [teams, setTeams] = useState(initialTeams);
   const [players, setPlayers] = useState(initialPlayers);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
@@ -45,47 +47,57 @@ export default function App() {
     setSelectedTeam(null);
   };
 
+  const sortedPlayers = [...players.filter((p) => !p.sold)].sort((a, b) => b.basePrice - a.basePrice);
+
   return (
-    <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <h2 className="text-xl font-bold mb-2">Available Players</h2>
-        <ul className="space-y-2">
-          {players.filter((p) => !p.sold).map((player) => (
-            <li
-              key={player.id}
-              className="p-2 border rounded cursor-pointer hover:bg-gray-100"
-              onClick={() => setSelectedPlayer(player)}
-            >
-              {player.name} (Base: ₹{player.basePrice})
-            </li>
-          ))}
-        </ul>
+    <div className="p-4 bg-gray-100 min-h-screen">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6">
+        <img src={logo} alt="Shivohm Logo" className="w-16 h-16" />
+        <h1 className="text-3xl font-bold text-center text-gray-800 flex-1">Shivohm Premiere League</h1>
       </div>
 
-      <div>
-        <h2 className="text-xl font-bold mb-2">Teams</h2>
-        <div className="space-y-4">
-          {teams.map((team) => (
-            <div key={team.name} className={`p-3 rounded-lg`} style={{ backgroundColor: team.color }}>
-              <h3 className="text-white font-semibold text-lg">{team.name} - ₹{team.balance} Left</h3>
-              <ul className="text-white text-sm mt-2">
-                {team.players.map((p) => (
-                  <li key={p.id}>{p.name} - ₹{p.bid}</li>
-                ))}
-              </ul>
-              <button
-                className="mt-2 bg-white text-black px-2 py-1 rounded"
-                onClick={() => setSelectedTeam(team.name)}
-              >
-                Select {team.name}
-              </button>
+      {/* Team Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        {teams.map((team) => (
+          <div key={team.name} className="rounded-xl p-4 shadow-lg text-white" style={{ backgroundColor: team.color }}>
+            <h3 className="text-xl font-semibold">{team.name}</h3>
+            <p className="text-sm">Balance: ₹{team.balance}</p>
+            <ul className="mt-2 text-sm">
+              {team.players.map((p) => (
+                <li key={p.id}>{p.name} - ₹{p.bid}</li>
+              ))}
+            </ul>
+            <button
+              className="mt-2 bg-white text-black px-3 py-1 rounded"
+              onClick={() => setSelectedTeam(team.name)}
+            >
+              Select {team.name}
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* Players List */}
+      <div className="bg-white p-4 rounded-lg shadow-md mb-4">
+        <h2 className="text-xl font-semibold mb-3">Available Players</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {sortedPlayers.map((player) => (
+            <div
+              key={player.id}
+              className="border p-2 rounded shadow-sm hover:bg-gray-50 cursor-pointer"
+              onClick={() => setSelectedPlayer(player)}
+            >
+              <p className="font-medium">{player.name}</p>
+              <p className="text-sm">Base: ₹{player.basePrice}</p>
             </div>
           ))}
         </div>
       </div>
 
+      {/* Bidding Panel */}
       {selectedPlayer && (
-        <div className="col-span-2 border p-4 mt-4 rounded">
+        <div className="bg-white p-4 rounded shadow-lg mt-4">
           <h2 className="text-lg font-semibold mb-2">Auctioning: {selectedPlayer.name}</h2>
           <input
             type="number"
