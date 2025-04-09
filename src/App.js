@@ -1,6 +1,6 @@
 // SPL Auction Platform - Enhanced UI with Shivohm Branding
 import React, { useState } from "react";
-import logo from "./assets/logo.png"; // Make sure to place the Shivohm logo as 'logo.png' in public or src/assets
+import logo from "../public/logo.png"; // Ensure logo.png is placed in public folder
 
 const initialTeams = [
   { name: "Blue Blasters", color: "#3B82F6", balance: 1000, players: [] },
@@ -9,13 +9,20 @@ const initialTeams = [
   { name: "Red Rangers", color: "#EF4444", balance: 1000, players: [] },
 ];
 
-const initialPlayers = Array.from({ length: 50 }, (_, i) => ({
-  id: i + 1,
-  name: `Player ${i + 1}`,
-  basePrice: 50 + (i % 5) * 10,
+const playerNames = [
+  "Akshay Patel", "Chirag Patel", "Dhruv Jani", "Dhruv Prajapati", "Divyesh Desani",
+  "Gaurav Pandya", "Helly Priyadarshi", "Himanshi Makwana", "Jaydeep Dabhi", "Jaydeep Rupala",
+  "Jayesh Patoliya", "Kishan Jani", "Komal Shah", "Maulik Pathar", "Mahendra Gami",
+  "Mansi Joshi", "Nilesh Newaskar", "Parth Nagvadia"
+];
+
+const initialPlayers = playerNames.map((name, index) => ({
+  id: index + 1,
+  name,
+  basePrice: 10,
   sold: false,
   team: null,
-  bid: 0,
+  bid: 0
 }));
 
 export default function SPLAuction() {
