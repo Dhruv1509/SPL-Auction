@@ -1,13 +1,13 @@
 // SPL Auction Platform - Enhanced UI with Shivohm Branding
 import React, { useState } from "react";
-const logo = "/logo.png"; // ✅ Use public URL path
-<img src={logo} alt="Shivohm Logo" className="w-16 h-16" />
+
+const logo = "/logo.png"; // Use logo from public directory
 
 const initialTeams = [
-  { name: "Blue Blasters", color: "#3B82F6", balance: 1000, players: [] },
-  { name: "Green Guardians", color: "#10B981", balance: 1000, players: [] },
-  { name: "Yellow Yoddhas", color: "#FACC15", balance: 1000, players: [] },
-  { name: "Red Rangers", color: "#EF4444", balance: 1000, players: [] },
+  { name: "Jabardast Jetha", color: "#3B82F6", balance: 1000, players: [] },
+  { name: "Bindas Bhide", color: "#10B981", balance: 1000, players: [] },
+  { name: "Babita Blaster", color: "#FACC15", balance: 1000, players: [] },
+  { name: "Daya Daredevils", color: "#EF4444", balance: 1000, players: [] },
 ];
 
 const playerNames = [
@@ -88,6 +88,7 @@ export default function SPLAuction() {
 
       {/* Players List */}
       <div className="bg-white p-4 rounded-lg shadow-md mb-4">
+        <h2 className="text-xl font-semibold mb-1">Auctioning:</h2>
         <h2 className="text-xl font-semibold mb-3">Available Players</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {sortedPlayers.map((player) => (
