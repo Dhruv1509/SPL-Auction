@@ -1,6 +1,7 @@
 // SPL Auction Platform - Enhanced UI with Shivohm Branding
 import React, { useState } from "react";
-import logo from "../public/logo.png"; // Ensure logo.png is placed in public folder
+const logo = "/logo.png"; // ✅ Use public URL path
+<img src={logo} alt="Shivohm Logo" className="w-16 h-16" />
 
 const initialTeams = [
   { name: "Blue Blasters", color: "#3B82F6", balance: 1000, players: [] },
