@@ -86,7 +86,7 @@ export default function SPLAuction() {
       {/* Bidding Panel - moved above Players List */}
       {selectedPlayer && (
         <div className="bg-white p-4 rounded shadow-lg mb-4">
-          <h2 className="text-lg font-semibold mb-2">Auctioning: {selectedPlayer.name}</h2>
+        
           <input
             type="number"
             placeholder="Enter Bid Amount"
